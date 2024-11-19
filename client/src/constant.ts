@@ -1,0 +1,1 @@
+export const ITEM_CATEGORY = 'Best Seller' | 'New Arrivals' | 'Top Rated'

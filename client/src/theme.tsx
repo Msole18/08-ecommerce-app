@@ -1,8 +1,11 @@
 import { createTheme } from '@mui/material/styles'
 
 declare module '@mui/material/styles' {
+  interface Palette {
+    neutral: Palette['primary']
+  }
   interface PaletteOptions {
-    neutral?: { dark: string; main: string; light: string }
+    neutral?: PaletteOptions['primary']
   }
 }
 
