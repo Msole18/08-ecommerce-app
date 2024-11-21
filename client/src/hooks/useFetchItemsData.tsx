@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Item } from '../types'
 import { useCartActions } from './useCartActions'
 
-const useFetchItems = () => {
+const useFetchItemsData = () => {
   const [items, setItems] = useState<Item[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const { setItemsAction } = useCartActions()
 
-  useEffect(() => {
+
     const fetchItems = async () => {
       setIsLoading(true)
       setError(null)
@@ -21,18 +21,18 @@ const useFetchItems = () => {
 
         const mappedItems = data.data.map((item: any) => ({
           id: item.id.toString(),
-          name: item.name,
+          name: item.name || 'Unnamed Item',
           shortDescription:
-            item.shortDescription[0]?.children[0]?.text ||
+            item.shortDescription?.[0]?.children?.[0]?.text ||
             'No description available',
           longDescription:
-            item.longDescription[0]?.children[0]?.text ||
+            item.longDescription?.[0]?.children?.[0]?.text ||
             'No description available',
-          price: item.price,
-          category: item.category,
-          image: item.image.formats.medium.url,
+          price: item.price || 0,
+          category: item.category || 'uncategorized',
+          image: item.image?.formats?.medium?.url || 'default-image-url.jpg',
         }))
-
+        console.log(mappedItems)
         setItems(mappedItems)
         setItemsAction(mappedItems)
       } catch (err) {
@@ -43,10 +43,7 @@ const useFetchItems = () => {
       }
     }
 
-    fetchItems()
-  }, [setItemsAction])
-
-  return { items, isLoading, error }
+  return { items, isLoading, error, fetchItems }
 }
 
-export default useFetchItems
+export default useFetchItemsData

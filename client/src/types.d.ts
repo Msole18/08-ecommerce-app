@@ -1,4 +1,7 @@
-export type ItemCategory = 'Best Seller' | 'New Arrivals' | 'Top Rated'
+import { ITEM_CATEGORY } from "./constants"
+
+export type ItemCategory = (typeof ITEM_CATEGORY)[keyof typeof ITEM_CATEGORY]
+
 export type ItemId = Pick<Item, 'id'>
 
 export interface Item {
@@ -12,7 +15,7 @@ export interface Item {
 }
 
 export interface CartItem extends Item {
-  quantity: number 
+  quantity: number
 }
 
 export interface CartState {

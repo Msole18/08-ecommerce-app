@@ -3,17 +3,19 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { IconButton, Box, Typography, useTheme, Button } from "@mui/material";
 import { shades } from "../theme";
 import { useNavigate } from 'react-router-dom'
-import { Item } from "../types";
+import { Item as ItemType } from '../types'
 import { useState } from 'react'
 import { useCartActions } from "../hooks/useCartActions";
+import { ITEM_CATEGORY } from "../constants";
 
 
 interface Props {
-  item: Item,
-  width: number | string
+  item: ItemType
+  // width: number | string
 }
 
-const Items = ({ item, width }:Props) => {
+// const Item = ({ item, width }:Props) => {
+const Item = ({ item  }:Props) => {
   const { palette: { neutral } } = useTheme()
   const navigate = useNavigate()
   const [isHovered, setIsHovered] = useState(false)
@@ -21,7 +23,8 @@ const Items = ({ item, width }:Props) => {
   const { addToCartAction } = useCartActions()
 
   return (
-    <Box width={width}>
+    // <Box width={width}>
+    <Box>
       <Box
         position="relative"
         onMouseOver={() => setIsHovered(true)}
@@ -80,9 +83,7 @@ const Items = ({ item, width }:Props) => {
 
       <Box mt="3px">
         <Typography variant="subtitle2" color={neutral.dark}>
-          {item.category
-            .replace(/([A-Z])/g, ' $1')
-            .replace(/^./, (str) => str.toUpperCase())}
+            {ITEM_CATEGORY[item.category as keyof typeof ITEM_CATEGORY]}
         </Typography>
         <Typography>{item.name}</Typography>
         <Typography fontWeight="bold">${item.price}</Typography>
@@ -91,4 +92,4 @@ const Items = ({ item, width }:Props) => {
   )
 }
 
-export default Items
+export default Item
