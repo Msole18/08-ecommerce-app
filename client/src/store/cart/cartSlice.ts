@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { CartItem, CartState, Item, ItemId } from '../../types'
+import { CartItem, CartState, Item } from '../../types'
 
 const initialState: CartState = {
   isCartOpen: false,
@@ -19,7 +19,7 @@ export const cartSlice = createSlice({
       state.items = action.payload
     },
 
-    addToCart: (state, action: PayloadAction<Item>) => {
+    addToCart: (state, action: PayloadAction<CartItem>) => {
       const isItemAlreadyDefined = state.cart.find(
         (item: CartItem) => item.id === action.payload.id
       )
@@ -30,7 +30,7 @@ export const cartSlice = createSlice({
       }
     },
 
-    removeFromCart: (state, action: PayloadAction<ItemId>) => {
+    removeFromCart: (state, action: PayloadAction<CartItem>) => {
       const isItemAlreadyDefined = state.cart.find(
         (item: CartItem) => item.id === action.payload.id
       )

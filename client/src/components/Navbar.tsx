@@ -1,15 +1,20 @@
-import { MenuOpenOutlined, PersonOutline, SearchOutlined, ShoppingBagOutlined } from '@mui/icons-material'
-import { useAppSelector } from '../../hooks/store'
-import { Badge, Box, IconButton } from '@mui/material'
+import {
+  MenuOpenOutlined,
+  PersonOutline,
+  SearchOutlined,
+  ShoppingBagOutlined,
+} from '@mui/icons-material'
+import { useAppSelector } from '../hooks/store'
+import { Badge, Box, IconButton, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { shades } from '../../theme'
-import { useCartActions } from '../../hooks/useCartActions'
+import { shades } from '../theme'
+import { useCartActions } from '../hooks/useCartActions'
+
 
 const Navbar = () => {
   const navigate = useNavigate()
   const cart = useAppSelector((state) => state.cart.cart)
-  const { toggleCartAction } = useCartActions()
-  
+  const { setIsCartOpenAction } = useCartActions()
 
   return (
     <Box
@@ -40,7 +45,7 @@ const Navbar = () => {
           sx={{ '&:hover': { cursor: 'pointer' } }}
           color={shades.secondary[500]}
         >
-          Payment Market
+          <Typography variant="h2">ARAZ</Typography>
         </Box>
         <Box
           display="flex"
@@ -48,10 +53,10 @@ const Navbar = () => {
           columnGap="20px"
           sx={{ zIndex: 2 }}
         >
-          <IconButton sx={{ color: 'black' }}>
+          <IconButton aria-label="search" sx={{ color: 'black' }}>
             <SearchOutlined />
           </IconButton>
-          <IconButton sx={{ color: 'black' }}>
+          <IconButton aria-label="profile" sx={{ color: 'black' }}>
             <PersonOutline />
           </IconButton>
           <Badge
@@ -69,13 +74,16 @@ const Navbar = () => {
             }}
           >
             <IconButton
-              onClick={() => { toggleCartAction()}}
+              aria-label="cart"
+              onClick={() => {
+                setIsCartOpenAction()
+              }}
               sx={{ color: 'black' }}
             >
               <ShoppingBagOutlined />
             </IconButton>
           </Badge>
-          <IconButton sx={{ color: 'black' }}>
+          <IconButton aria-label="menu" sx={{ color: 'black' }}>
             <MenuOpenOutlined />
           </IconButton>
         </Box>
