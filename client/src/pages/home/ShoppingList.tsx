@@ -14,7 +14,7 @@ const ShoppingList = () => {
   const [value, setValue] = useState<ItemCategory>('all')
 
   const handleChange = (
-    event: React.SyntheticEvent,
+    _: React.SyntheticEvent,
     value: ItemCategory
   ) => {
     const newValue = value
@@ -26,6 +26,7 @@ const ShoppingList = () => {
       ? items
       : items.filter((item) => item.category === value)
   }, [value, items])
+  
   useEffect(() => {
     fetchItems() 
   }, [])

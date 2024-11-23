@@ -1,7 +1,10 @@
-import { ITEM_CATEGORY } from "./constants"
+import { ITEM_CATEGORY, TAB_ITEM_DETAILS_VALUES } from './constants'
 
 export type ItemCategory = (typeof ITEM_CATEGORY)[keyof typeof ITEM_CATEGORY]
-
+// export type ItemCategory = keyof typeof ITEM_CATEGORY
+export type TabDetailsValue =
+  (typeof TAB_ITEM_DETAILS_VALUES)[keyof typeof TAB_ITEM_DETAILS_VALUES]
+// export type TabDetailsValue = typeof TAB_ITEM_DETAILS_VALUES
 export type ItemId = Pick<Item, 'id'>
 
 export interface Item {

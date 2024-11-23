@@ -16,11 +16,12 @@ interface Props {
 
 // const Item = ({ item, width }:Props) => {
 const Item = ({ item  }:Props) => {
-  const { palette: { neutral } } = useTheme()
   const navigate = useNavigate()
+  const { palette: { neutral } } = useTheme()
+  const { addToCartAction } = useCartActions()
+
   const [isHovered, setIsHovered] = useState(false)
   const [quantity, setQuantity] = useState(1)
-  const { addToCartAction } = useCartActions()
 
   return (
     // <Box width={width}>
@@ -83,7 +84,7 @@ const Item = ({ item  }:Props) => {
 
       <Box mt="3px">
         <Typography variant="subtitle2" color={neutral.dark}>
-            {ITEM_CATEGORY[item.category as keyof typeof ITEM_CATEGORY]}
+          {ITEM_CATEGORY[item.category as keyof typeof ITEM_CATEGORY]}
         </Typography>
         <Typography>{item.name}</Typography>
         <Typography fontWeight="bold">${item.price}</Typography>
