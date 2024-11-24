@@ -8,7 +8,7 @@ export type TabDetailsValue =
 export type ItemId = Pick<Item, 'id'>
 
 export interface Item {
-  id: string
+  id: number
   name: string
   shortDescription: string
   longDescription: string
@@ -23,6 +23,30 @@ export interface CartItem extends Item {
 
 export interface CartState {
   isCartOpen: boolean
-  items: Item[] // Productos disponibles
-  cart: CartItem[] // Productos en el carrito
+  items: Item[] 
+  cart: CartItem[] 
+}
+
+export interface APIResponse {
+  id: number
+  name: string
+  shortDescription: Array<{
+    children: Array<{
+      text: string
+    }>
+  }>
+  longDescription: Array<{
+    children: Array<{
+      text: string
+    }>
+  }>
+  price: number
+  category: ItemCategory
+  image: {
+    formats: {
+      medium: {
+        url: string
+      }
+    }
+  }
 }
