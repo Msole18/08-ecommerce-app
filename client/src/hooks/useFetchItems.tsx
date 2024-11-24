@@ -1,7 +1,11 @@
 import { useState } from 'react'
-import { APIResponse, Item } from '../types'
+import { APIResponse, Item, ItemCategory, ItemId } from '../types'
 import { useCartActions } from './useCartActions'
-import { ALL_ITEMS_ENDPOINT } from '../constants'
+import {
+  ALL_ITEMS_ENDPOINT,
+  ITEMS_BY_CATEGORY_ENDPOINT,
+  ITEMS_BY_ID_ENDPOINT,
+} from '../constants'
 
 const useFetchItems = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -9,7 +13,7 @@ const useFetchItems = () => {
   const [items, setItems] = useState<Item[]>([])
   const { setItemsAction } = useCartActions()
 
-  const mappedApiData = (data: APIResponse[])=> {
+  const mappedApiData = (data: APIResponse[]) => {
     return data.map((item) => ({
       id: item.id,
       name: item.name || 'Unnamed Item',
@@ -45,7 +49,50 @@ const useFetchItems = () => {
     }
   }
 
-  return { items, isLoading, error, getAllItems }
+  const getItemsById = async (id: ItemId) => {
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const response = await fetch(`${ITEMS_BY_ID_ENDPOINT(id)}`)
+      const res = await response.json()
+      const mappedItems = mappedApiData([res.data]) // We pass an array with a single element
+      console.log(mappedItems)
+      setItems(mappedItems)
+    } catch (err) {
+      setError('Failed to fetch item by ID.')
+      console.error(err)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const getItemsByCategory = async (category: ItemCategory) => {
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const response = await fetch(ITEMS_BY_CATEGORY_ENDPOINT(category))
+      const res = await response.json()
+      const mappedItems = mappedApiData(res.data)
+      setItems(mappedItems)
+      setItemsAction(mappedItems)
+    } catch (err) {
+      setError('Failed to fetch items by category.')
+      console.error(err)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return {
+    items,
+    isLoading,
+    error,
+    getAllItems,
+    getItemsByCategory, 
+    getItemsById,
+  }
 }
 
 export default useFetchItems
