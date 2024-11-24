@@ -9,7 +9,7 @@ const useFetchItemsData = () => {
   const { setItemsAction } = useCartActions()
 
 
-    const fetchItems = async () => {
+    const getAllItems = async () => {
       setIsLoading(true)
       setError(null)
 
@@ -43,7 +43,7 @@ const useFetchItemsData = () => {
       }
     }
 
-  return { items, isLoading, error, fetchItems }
+  return { items, isLoading, error, getAllItems }
 }
 
 export default useFetchItemsData
