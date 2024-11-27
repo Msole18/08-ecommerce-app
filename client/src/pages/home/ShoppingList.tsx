@@ -1,22 +1,18 @@
-import { Box, Tab, Tabs, Typography, useMediaQuery } from "@mui/material"
-import { useEffect, useMemo, useState } from "react"
-import { useAppSelector } from "../../hooks/store"
-import Item from "../../components/Item"
-import useFetchItemsData from '../../hooks/useFetchItemsData'
-import { ItemCategory } from "../../types"
-import { ITEM_CATEGORY } from "../../constants"
-
+import { Box, Tab, Tabs, Typography, useMediaQuery } from '@mui/material'
+import { useEffect, useMemo, useState } from 'react'
+import { useAppSelector } from '../../hooks/store'
+import Item from '../../components/Item'
+import useFetchItems from '../../hooks/useFetchItems'
+import { ItemCategory } from '../../types'
+import { ITEM_CATEGORY } from '../../constants'
 
 const ShoppingList = () => {
   const breakPoint = useMediaQuery('(min-width:600px)')
   const items = useAppSelector((state) => state.cart.items)
-  const { fetchItems } = useFetchItemsData()
+  const { getAllItems } = useFetchItems()
   const [value, setValue] = useState<ItemCategory>('all')
 
-  const handleChange = (
-    _: React.SyntheticEvent,
-    value: ItemCategory
-  ) => {
+  const handleChange = (_: React.SyntheticEvent, value: ItemCategory) => {
     const newValue = value
     setValue(newValue)
   }
@@ -26,9 +22,9 @@ const ShoppingList = () => {
       ? items
       : items.filter((item) => item.category === value)
   }, [value, items])
-  
+
   useEffect(() => {
-    fetchItems() 
+    getAllItems()
   }, [])
 
   return (
