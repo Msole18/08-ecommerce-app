@@ -49,7 +49,8 @@ const useFetchItems = () => {
     }
   }
 
-  const getItemsById = async (id: ItemId) => {
+  const getItemsById = async (id: string): Promise<Item | undefined> => {
+    console.log('getItemsById :', id)
     setIsLoading(true)
     setError(null)
 
@@ -58,7 +59,8 @@ const useFetchItems = () => {
       const res = await response.json()
       const mappedItems = mappedApiData([res.data]) // We pass an array with a single element
       console.log(mappedItems)
-      setItems(mappedItems)
+      // setItems(mappedItems)
+      return mappedItems[0]
     } catch (err) {
       setError('Failed to fetch item by ID.')
       console.error(err)
@@ -67,7 +69,10 @@ const useFetchItems = () => {
     }
   }
 
-  const getItemsByCategory = async (category: ItemCategory) => {
+  const getItemsByCategory = async (
+    category: ItemCategory
+  ): Promise<Item[] | undefined> => {
+    console.log('getItemsByCategory :', category)
     setIsLoading(true)
     setError(null)
 
@@ -76,7 +81,7 @@ const useFetchItems = () => {
       const res = await response.json()
       const mappedItems = mappedApiData(res.data)
       setItems(mappedItems)
-      setItemsAction(mappedItems)
+      return mappedItems
     } catch (err) {
       setError('Failed to fetch items by category.')
       console.error(err)

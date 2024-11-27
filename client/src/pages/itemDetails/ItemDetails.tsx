@@ -18,7 +18,7 @@ import { Item as ItemType } from '../../types'
 const ItemDetails = () => {
   const { addToCartAction } = useCartActions()
   const items = useAppSelector((state) => state.cart.items)
-  const { getAllItems } = useFetchItems()
+  const { getItemsByCategory, getItemsById } = useFetchItems()
   const { itemId } = useParams()
 
   const [value, setValue] = useState<TabDetailsValue>(
@@ -27,37 +27,86 @@ const ItemDetails = () => {
 
   const [quantity, setQuantity] = useState(1)
   const [item, setItem] = useState<ItemType | undefined>(undefined)
+  const [relatedItems, setRelatedItems] =
+    useState<ItemType[] | undefined>(undefined) 
 
   const handleChange = (_: React.SyntheticEvent, value: TabDetailsValue) => {
     setValue(value)
   }
 
-  useEffect(() => {
-    // Buscar el ítem en la store
-    const foundItem = items.find((item) => item.id === itemId)
+  // useEffect(() => {
+  //   // Verificar si el item ya está en la store
+  //   const foundItem = items.find((item) => item.id === Number(itemId))
+    
+  //   if (foundItem) {
+  //   //   // Si el item está en la store, lo asignamos directamente del estado
+  //     setItem(foundItem)
+  //     setRelatedItems(
+  //       items.filter((item) => item.id !== foundItem.id).slice(0, 4)
+  //     )
+  //   } 
+   //   // else {
+  //   //   // Si no está en la store, buscar el ítem por ID y luego los productos relacionados con ese ID
+  //   //   const fetchDetails = async () => {
+  //   //     try {
+  //   //       const fetchedItem = await getItemsById(itemId.toString())
 
-    if (foundItem) {
-      // Si se encuentra en la store, actualizamos el estado
-      console.log('foundItem', foundItem)
-      setItem(foundItem)
-    }
-    // else {
-    //   // Si no se encuentra, necesitamos buscarlo (fetchItemById) y también los relacionados
-    //   // Aquí solo planificamos la estructura de la lógica
-    //   const fetchDetails = async () => {
-    //     const newItem = await fetchItemById(itemId) // Obtener el ítem por ID
-    //     if (newItem) {
-    //       setItem(newItem) // Actualizar el estado con el nuevo ítem
-    //       const related = await fetchItemsByCategory(newItem.category) // Buscar relacionados
-    //       setRelatedItems(related.filter((item) => item.id !== newItem.id)) // Excluir el actual
-    //     }
-    //   }
+  //   //       if (fetchedItem) {
+  //   //         setItem(fetchedItem)
+  //   //         // Buscar productos relacionados
+  //   //         const related = await getItemsByCategory(fetchedItem.category)
+  //   //         setRelatedItems(
+  //   //           related
+  //   //             ?.filter((relatedItem) => relatedItem.id !== fetchedItem.id)
+  //   //             .slice(0, 4)
+  //   //         )
+  //   //       } else {
+  //   //         // Si no se encuentra el item, puedes mostrar un mensaje de error o redirigir
+  //   //         setItem(undefined) // Esto manejaría el estado de no encontrado
+  //   //       }
+  //   //     } catch (error) {
+  //   //       console.error('Error fetching item details:', error)
+  //   //       // Aquí podrías manejar el error como un fallback
+  //   //       setItem(undefined)
+  //   //     }
+  //   //   }
 
-    //   fetchDetails() // Llamamos a la función definida dentro del useEffect
-    // }
-  }, [itemId, items])
+  //   //   fetchDetails()
+  //   // }
+  // }, [itemId, items, getItemsByCategory, getItemsById])
 
-  const relatedItems = items.slice(0, 4)
+useEffect(() => {
+  // Verificar si el item ya está en la store
+  const foundItem = items.find((item) => item.id === Number(itemId))
+
+  if (foundItem) {
+    //   // Si el item está en la store, lo asignamos directamente del estado
+    setItem(foundItem)
+    setRelatedItems(
+      items.filter((item) => item.id !== foundItem.id).slice(0, 4)
+    )
+  }
+
+  fetch(`http://localhost:2000/api/items/${itemId}?populate=image`, {
+    method: 'GET',
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      return response.json()
+    })
+    .then((data) => {
+      if (data && data.data) {
+        setItem(data.data) // Ajusta según la estructura de respuesta
+      } else {
+        console.error('Item not found in response:', data)
+      }
+    })
+    .catch((error) => console.error('Fetch error:', error.message))
+
+
+}, [itemId])
 
   return (
     <>
@@ -163,8 +212,8 @@ const ItemDetails = () => {
               columnGap="1.33%"
               justifyContent="space-between"
             >
-              {relatedItems.map((item, i) => (
-                <Item key={`${item.name}-${i}`} item={item} />
+              {relatedItems?.map((item, index) => (
+                <Item key={`${item.name}-${index}`} item={item} />
               ))}
             </Box>
           </Box>
