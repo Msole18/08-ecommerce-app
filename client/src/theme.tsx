@@ -9,10 +9,6 @@ declare module '@mui/material/styles' {
   }
 }
 
-// declare module '@emotion/react' {
-//   export interface Theme extends ReturnType<typeof createTheme> {}
-// }
-
 export const shades = {
   primary: {
     //black

@@ -10,23 +10,23 @@ export default factories.createCoreController(
     async findOne(ctx) {
       const { id } = ctx.params
 
-      // Asegurarnos de que el ID sea un número
+      // Ensure that the ID is a number
       const itemId = parseInt(id, 10)
       if (isNaN(itemId)) {
         return ctx.badRequest('Invalid ID format')
       }
 
-      // Buscar el ítem por ID
+      // Search item by ID
       const item = await strapi.db.query('api::item.item').findOne({
         where: { id: itemId },
-        populate: ['image'], // Cambia esto si no deseas incluir relaciones automáticamente
+        populate: ['image'], // Change this if you do not want to include relationships automatically
       })
 
       if (!item) {
         return ctx.notFound('Item not found')
       }
 
-      // Sanitizamos la salida y transformamos la respuesta
+      // Sanitizing the output and transforming the response
       const sanitizedEntity = await this.sanitizeOutput(item, ctx)
       return this.transformResponse(sanitizedEntity)
     },

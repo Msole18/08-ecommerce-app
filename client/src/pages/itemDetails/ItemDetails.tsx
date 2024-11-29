@@ -15,7 +15,7 @@ import { Item as ItemType } from '../../types'
 const ItemDetails = () => {
   const { addToCartAction } = useCartActions()
   const items = useAppSelector((state) => state.cart.items)
-  const { fetchItems } = useFetchItemsData()
+  const { getItemsByCategory, getItemsById } = useFetchItems()
   const { itemId } = useParams()
 
   const [value, setValue] = useState<TabDetailsValue>(

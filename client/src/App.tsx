@@ -2,9 +2,7 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import HomePage from './pages/home/HomePage'
 import Navbar from './components/Navbar'
-import CheckOut from './pages/checkout/CheckOut'
 import ItemDetails from './pages/itemDetails/ItemDetails'
-import Confirmation from './pages/checkout/Confirmation'
 import CartMenu from './components/CartMenu'
 import Footer from './components/Footer'
 
@@ -32,8 +30,6 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="item/:itemId" element={<ItemDetails />} />
-          <Route path="checkout" element={<CheckOut />} />
-          <Route path="checkout/success" element={<Confirmation />} />
         </Routes>
         <CartMenu />
         <Footer />

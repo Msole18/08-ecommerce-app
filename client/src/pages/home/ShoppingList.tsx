@@ -2,7 +2,7 @@ import { Box, Tab, Tabs, Typography, useMediaQuery } from "@mui/material"
 import { useEffect, useMemo, useState } from "react"
 import { useAppSelector } from "../../hooks/store"
 import Item from "../../components/Item"
-import useFetchItemsData from '../../hooks/useFetchItemsData'
+import useFetchItems from '../../hooks/useFetchItems'
 import { ItemCategory } from "../../types"
 import { ITEM_CATEGORY } from "../../constants"
 
@@ -10,7 +10,7 @@ import { ITEM_CATEGORY } from "../../constants"
 const ShoppingList = () => {
   const breakPoint = useMediaQuery('(min-width:600px)')
   const items = useAppSelector((state) => state.cart.items)
-  const { fetchItems } = useFetchItemsData()
+  const { getAllItems } = useFetchItems()
   const [value, setValue] = useState<ItemCategory>('all')
 
   const handleChange = (
@@ -28,7 +28,7 @@ const ShoppingList = () => {
   }, [value, items])
   
   useEffect(() => {
-    fetchItems() 
+    getAllItems() 
   }, [])
 
   return (
