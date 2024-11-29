@@ -1,11 +1,7 @@
 import { useState } from 'react'
-import { APIResponse, Item, ItemCategory, ItemId } from '../types'
+import { APIResponse, Item, ItemCategory} from '../types'
 import { useCartActions } from './useCartActions'
-import {
-  ALL_ITEMS_ENDPOINT,
-  ITEMS_BY_CATEGORY_ENDPOINT,
-  ITEMS_BY_ID_ENDPOINT,
-} from '../constants'
+import { API_URL } from '../config'
 
 const useFetchItems = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -34,7 +30,7 @@ const useFetchItems = () => {
     setError(null)
 
     try {
-      const response = await fetch(ALL_ITEMS_ENDPOINT)
+      const response = await fetch(`${API_URL}/items/?populate=image`)
       const res = await response.json()
       // console.log(JSON.stringify(res.data, null, 2))
       const mappedItems = mappedApiData(res.data)
@@ -55,7 +51,7 @@ const useFetchItems = () => {
     setError(null)
 
     try {
-      const response = await fetch(`${ITEMS_BY_ID_ENDPOINT(id)}`)
+      const response = await fetch(`${API_URL}/items/${id}?populate=image`)
       const res = await response.json()
       const mappedItems = mappedApiData([res.data]) // We pass an array with a single element
       console.log(mappedItems)
@@ -77,7 +73,9 @@ const useFetchItems = () => {
     setError(null)
 
     try {
-      const response = await fetch(ITEMS_BY_CATEGORY_ENDPOINT(category))
+      const response = await fetch(
+        `${API_URL}/items?filters[category][$eq]=${category}&populate=image`
+      )
       const res = await response.json()
       const mappedItems = mappedApiData(res.data)
       setItems(mappedItems)

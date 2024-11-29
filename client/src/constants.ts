@@ -1,15 +1,3 @@
-import { ItemCategory, ItemId } from "./types"
-
-export const ALL_ITEMS_ENDPOINT = `http://localhost:1337/api/items?populate=*`
-export const ITEMS_BY_CATEGORY_ENDPOINT = (
-  category: string
-) =>
-  `http://localhost:1337/api/items?filters[category][$eq]=${category}&populate=*`
-  export const ITEMS_BY_ID_ENDPOINT = (id: string) =>
-    `http://localhost:1337/api/items/${id}?populate=*`
-
-
-
 export const ITEM_CATEGORY = {
   all: 'all',
   topRated: 'Top Rated',

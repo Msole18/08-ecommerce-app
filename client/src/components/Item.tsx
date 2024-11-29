@@ -15,7 +15,7 @@ interface Props {
 }
 
 // const Item = ({ item, width }:Props) => {
-const Item = ({ item  }:Props) => {
+const Item = ({ item }:Props) => {
   const navigate = useNavigate()
   const { palette: { neutral } } = useTheme()
   const { addToCartAction } = useCartActions()
