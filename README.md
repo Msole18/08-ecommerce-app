@@ -1,4 +1,4 @@
-# Ecommerce de Ropa - Proyecto en Desarrollo
+# Ecommerce App 
 This project is a clothing ecommerce under development, built with a frontend in React and TypeScript, and a backend using Strapi. Users can browse products, view details, add items to the shopping cart and perform other typical ecommerce functionality.
 
 ## Table of Contents
