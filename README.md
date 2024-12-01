@@ -15,25 +15,29 @@ Once the application is up and running, users will be able to:
 ### **Home Page**
 
   - Photo carousel: Display of featured product images.
-  ![Product carousel](client/src/assets/images/home-carousel.jpg)
+
+    ![Product carousel](client/src/assets/images/home-carousel.jpg)
 
   - Product list: Products are displayed in a grid with tabs to filter by categories. Each product includes its name, image and price.
-  ![Product list](client/src/assets/images/home-shopping-list.jpg)
+ 
+    ![Product list](client/src/assets/images/home-shopping-list.jpg)
 
 ### **Product Details Page**
 
   - When clicking on a product, the user is redirected to a page with the product details, which includes:
   - Product details: Name, main image, price and detailed description
-  ![Product list](client/src/assets/images/details-products.jpg)
+  
+       ![Product list](client/src/assets/images/details-products.jpg)
 
   - Related products
-  ![Product list](client/src/assets/images/related-products.jpg)
+       ![Product list](client/src/assets/images/related-products.jpg)
 
 ### **Shopping Cart**
 
   - The cart shows the products added, with their price and quantity. It also includes the total amount to be paid and allows you to remove products from the cart.
   - Although it is not enabled for payments, it allows you to view the selected products.
-![Product list](client/src/assets/images/shopping-cart.jpg)
+
+       ![Product list](client/src/assets/images/shopping-cart.jpg)
 
 ## Technologies
 
