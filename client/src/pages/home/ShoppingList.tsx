@@ -59,7 +59,7 @@ const ShoppingList = () => {
         display="grid"
         gridTemplateColumns="repeat(auto-fill, 300px)"
         justifyContent="space-around"
-        rowGap="20px"
+        rowGap="1rem"
         columnGap="1.33%"
       >
         {filteredItems.map((item) => (

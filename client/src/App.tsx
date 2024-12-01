@@ -2,9 +2,9 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import HomePage from './pages/home/HomePage'
 import Navbar from './components/Navbar'
-import ItemDetails from './pages/itemDetails/ItemDetails'
 import CartMenu from './components/CartMenu'
 import Footer from './components/Footer'
+import ItemDetails from './pages/details/ItemDetails'
 
 
 const ScrollToTop = () => {

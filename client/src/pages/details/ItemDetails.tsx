@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { TabDetailsValue } from '../../types'
 import { TAB_ITEM_DETAILS_VALUES } from '../../constants'
 import { Item as ItemType } from '../../types'
+import { API_URL } from '../../config'
 
 const ItemDetails = () => {
   const { addToCartAction } = useCartActions()
@@ -42,7 +43,7 @@ const ItemDetails = () => {
       // If the item is in the store, we assign it directly from the status
       setItem(foundItem)
       setRelatedItems(
-        items.filter((item) => item.id !== foundItem.id).slice(0, 4)
+        items.filter((item) => item.id !== foundItem.id).slice(0, 3)
       )
     } else {
       // If it is not in the store, search for the item by ID and then the products related to that ID
@@ -57,7 +58,7 @@ const ItemDetails = () => {
             setRelatedItems(
               related
                 ?.filter((relatedItem) => relatedItem.id !== fetchedItem.id)
-                .slice(0, 4)
+                .slice(0, 3)
             )
           } else {
             // If the item is not found, you can either display an error message or redirect
@@ -78,17 +79,23 @@ const ItemDetails = () => {
     <>
       {item ? (
         <Box width="80%" m="80px auto">
-          <Box display="flex" flexWrap="wrap" columnGap="40px">
+          <Box
+            display="flex"
+            alignItems="flex-start"
+            columnGap="40px"
+          >
             {/* IMAGES */}
-            <Box flex="1 1 40%" mb="40px">
+            <Box
+              flex="1 1 40%"
+              mb="0px"
+              height="500px"
+            >
               <img
                 alt={`Image of ${item.name}`}
                 width="100%"
                 height="100%"
                 src={
-                  item?.image
-                    ? `http://localhost:1337${item.image}`
-                    : '/placeholder.png'
+                  item?.image ? `${API_URL}${item.image}` : '/placeholder.png'
                 }
                 style={{ objectFit: 'contain' }}
               />

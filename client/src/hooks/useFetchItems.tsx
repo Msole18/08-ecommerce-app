@@ -30,7 +30,7 @@ const useFetchItems = () => {
     setError(null)
 
     try {
-      const response = await fetch(`${API_URL}/items/?populate=image`)
+      const response = await fetch(`${API_URL}/api/items/?populate=image`)
       const res = await response.json()
       // console.log(JSON.stringify(res.data, null, 2))
       const mappedItems = mappedApiData(res.data)
@@ -51,7 +51,7 @@ const useFetchItems = () => {
     setError(null)
 
     try {
-      const response = await fetch(`${API_URL}/items/${id}?populate=image`)
+      const response = await fetch(`${API_URL}/api/items/${id}?populate=image`)
       const res = await response.json()
       const mappedItems = mappedApiData([res.data]) // We pass an array with a single element
       console.log(mappedItems)
@@ -74,7 +74,7 @@ const useFetchItems = () => {
 
     try {
       const response = await fetch(
-        `${API_URL}/items?filters[category][$eq]=${category}&populate=image`
+        `${API_URL}/api/items?filters[category][$eq]=${category}&populate=image`
       )
       const res = await response.json()
       const mappedItems = mappedApiData(res.data)

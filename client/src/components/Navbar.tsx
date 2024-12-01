@@ -45,7 +45,7 @@ const Navbar = () => {
           sx={{ '&:hover': { cursor: 'pointer' } }}
           color={shades.secondary[500]}
         >
-          <Typography variant="h2">ARAZ</Typography>
+          <Typography variant="h2">Ecommerce</Typography>
         </Box>
         <Box
           display="flex"
